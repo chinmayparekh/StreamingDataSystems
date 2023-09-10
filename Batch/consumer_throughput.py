@@ -9,7 +9,7 @@ from threading import Lock
 from datetime import timedelta
 
 
-def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, latency_data,end):
+def consumer_task(regex_pattern, window_duration, matches_data, throughput_data, latency_data,end):
     print("Sleeping...")
     time.sleep(end)
     pattern = re.compile(regex_pattern)
@@ -17,7 +17,6 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
     window_id = 1
 
     latency_data.append(end)
-    print("Running with latency ",end)
     while True:
         start_time = None
         data = ""
@@ -28,7 +27,6 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
         total_events=0
         latency=0
         for i in range(count, count + window_duration):
-            print("Reading from ",count, count+window_duration-1)
             while retries < 5:  # Retry up to 3 times if the file doesn't exist
                 filename = os.path.join("data", f"{i}.csv")
                 
@@ -38,14 +36,20 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
                     time.sleep(1)  # Retry after 1 second
                 else:
                     break  # File exists, exit the retry loop
-            
+            currentTime = datetime.now()
             if retries == 5:
+                #Adding the matches
                 matches = len(re.findall(pattern, data))
                 total_matches += matches
+                matches_data.append(matches)
+                #Adding the throughput
+                difference = (currentTime - start_time).total_seconds()
+                average_throughput = total_events / difference
+                throughput_data.append(average_throughput)
+
                 print(f"Window {window_id} having {start_time} - {timestamp}: Matches: {matches}")
                 print("Ending the process due to multiple file not found errors.")
-                average_throughput = total_matches / window_duration
-                throughput_data.append(average_throughput)
+                
                 return
             
             print("Reading", filename)
@@ -63,26 +67,26 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
                     
                     if time_difference < window_duration:
                         data += event
-                        # currentTime = datetime.now()
-                        # difference = (currentTime - timestamp).total_seconds()
-                        # latency += (difference/1000000)
+
+        #Adding latency
         currentTime = datetime.now()
         difference = (currentTime - start_time).total_seconds()
-        latency = (difference/1000000)              
+        latency = (difference/1000000)  
+        latency_data.append(latency)
+        #Adding matches
         matches = len(re.findall(pattern, data))
-        print(f"Window {window_id} having {start_time} - {timestamp}: Matches: {matches}")
         total_matches += matches
+        matches_data.append(matches)
+        #Adding throughput
+        average_throughput = total_events / difference
+        throughput_data.append(average_throughput)
+        #Printing matches
+        print(f"Window {window_id} having {start_time} - {timestamp}: Matches: {matches}")
         start_time = timestamp
         data = ""
-        latency_data.append(latency)
         window_id += 1
         count += window_duration
 
-        with data_lock:
-            # Calculate and append the average throughput and latency to the lists
-            average_throughput = total_matches / window_duration
-            throughput_data.append(average_throughput)
-
-            # latency_data.append(latency)
+        
             
         

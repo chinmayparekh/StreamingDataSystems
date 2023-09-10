@@ -28,6 +28,7 @@ def main():
     generated_data = []
     throughput_data=[]
     latency_data=[]
+    matches_data=[]
     # Start the producer thread
 
     producer_thread = Thread(target=producer.generate_data, args=(throughput_per_second, duration, data_generation_event, data_lock, generated_data))
@@ -35,7 +36,7 @@ def main():
     
 
     # Start the consumer thread
-    consumer_thread = Thread(target=consumer.consumer_task, args=(regex_pattern, window_duration, data_lock_consumer,throughput_data, latency_data,duration))
+    consumer_thread = Thread(target=consumer.consumer_task, args=(regex_pattern, window_duration,matches_data,throughput_data, latency_data,duration))
     consumer_thread.start()
 
     # Wait for the producer thread to finish
@@ -69,11 +70,22 @@ def main():
     print("Throughput for producer ",generated_data)
     print("Throughput for consumer ",throughput_data)
     print("Latency = ",latency_data)
+    print("Matches = ",matches_data)
+
 if __name__ == '__main__':
     main()
+# duration = 20
+# throughput_per_second = 15000
+# window_duration = 10 
+# Throughput for producer  [15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000, 15000]
+# Throughput for consumer  [6915.541642510296, 11237.253022034454, 63.873644488256744]
+# Latency =  [20, 2.1690275e-05, 1.3348458000000001e-05]
+# Matches =  [19597, 19664, 1688]
 
-# Throughput for consumer  [1690.9, 1700.8, 0.0]
-# Latency =  [20, 2.0949725690220133, 0.9467598500260012]
 # duration = 20
 # throughput_per_second = 13000
-# window_duration = 10  # Fixed window duration of 10 seconds
+# window_duration = 10 
+# Throughput for producer  [13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000]
+# Throughput for consumer  [6006.032643988627, 9919.348069923773, 1572.5940883043033]
+# Latency =  [20, 2.1644904e-05, 1.31057e-05]
+# Matches =  [17047, 17103, 1707]
