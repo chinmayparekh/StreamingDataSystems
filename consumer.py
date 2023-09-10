@@ -6,6 +6,7 @@ import time
 import re
 from datetime import datetime
 from threading import Lock
+from datetime import timedelta
 
 
 def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, latency_data):
@@ -22,8 +23,8 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
         retries = 0
 
         total_matches = 0
-        total_latency = 0
-
+        total_events=0
+        latency=0
         for i in range(count, count + window_duration):
             while retries < 3:  # Retry up to 3 times if the file doesn't exist
                 filename = os.path.join("output_2", f"{i}.csv")
@@ -45,6 +46,7 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
             with open(filename, 'r') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
+                    total_events+=1
                     timestamp = datetime.strptime(row['t'], '%Y-%m-%d %H:%M:%S')
                     event = row['char']
 
@@ -53,14 +55,19 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
 
                     time_difference = (timestamp - start_time).total_seconds()
 
+                    
                     if time_difference < window_duration:
                         data += event
+                        currentTime = datetime.now()
+                        difference = (currentTime - timestamp).total_seconds()
+                        latency += (difference)
+                        # print(latency)
+
                     else:
                         matches = len(re.findall(pattern, data))
                         print(f"Window {window_id} having {start_time} - {timestamp}: Matches: {matches}")
 
                         total_matches += matches
-                        total_latency += time_difference
                         start_time = timestamp
                         data = ""
 
@@ -71,7 +78,7 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
         with data_lock:
             # Calculate and append the average throughput and latency to the lists
             average_throughput = total_matches / window_duration
-            average_latency = total_latency / window_duration
+            average_latency = latency / total_events
             throughput_data.append(average_throughput)
             latency_data.append(average_latency)
 

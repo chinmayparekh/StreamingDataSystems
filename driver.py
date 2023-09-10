@@ -72,19 +72,37 @@ def main():
     # Wait for the consumer thread to finish
     consumer_thread.join()
 
-    # Extract the generated data from the shared variable
-    data = generated_data
-    print(data)
-    print(latency_data)
-    print(throughput_data)
-    # Plot a line graph
-    x_values = list(range(1, len(data) + 1))
-    y_values = data
+    # Plot a line graph for Throughput Over Time
+    x_values = list(range(1, len(generated_data) + 1))
+    y_values = generated_data
     plt.plot(x_values, y_values)
     plt.xlabel('Time (seconds)')
     plt.ylabel('Events per second')
     plt.title('Throughput Over Time')
-    plt.show()
+    plt.savefig("Producer_throughput.jpg")  # Save the plot as an image
+    plt.show()  # Show the plot
+
+    # Plot a line graph for Latency Over Time
+    x_values = list(range(1, len(latency_data) + 1))
+    y_values = latency_data
+    plt.plot(x_values, y_values)
+    plt.xlabel('Window id')
+    plt.ylabel('Latency')
+    plt.title('Latency Over Time')
+    plt.savefig("Consumer_latency.jpg")  # Save the plot as an image
+    plt.show()  # Show the plot
+
+    # Plot a line graph for Consumer Throughput Over Time
+    x_values = list(range(1, len(throughput_data) + 1))
+    y_values = throughput_data
+    plt.plot(x_values, y_values)
+    plt.xlabel('Window id')
+    plt.ylabel('Matches per window id')
+    plt.title('Consumer Throughput Over Time')
+    plt.savefig("Consumer_throughput.jpg")  # Save the plot as an image
+    plt.show()  # Show the plot
+
+ 
 
 if __name__ == '__main__':
     main()
