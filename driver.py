@@ -1,39 +1,8 @@
-# import os
-# import csv
-# import random
-# import string
-# import time
-# import re
-# from datetime import datetime
-# from threading import Thread,Event,Lock
-# import consumer as consumer, producer as producer
-
-# def main():
-#     regex_pattern = r'([BCDFGHJKLMNPQRSTVWXYZ][AEIOU])+[BCDFGHJKLMNPQRSTVWXYZ]?'
-#     duration=60
-#     throughput_per_second=10000
-#     window_duration = 10  # Fixed window duration of 10 seconds
-#     producer_thread = Thread(target=producer.generate_data, args=(throughput_per_second, duration))
-#     producer_thread.start()
-
-#     consumer_thread = Thread(target=consumer.consumer_task, args=(regex_pattern,window_duration,duration))
-#     consumer_thread.start()
-
-#     producer_thread.join()
-#     consumer_thread.join()
-
-# if __name__ == '__main__':
-#     main()
-import os
-import csv
-import random
-import string
 import time
-import re
 from datetime import datetime
 from threading import Thread, Event, Lock
-import consumer as consumer
-import producer as producer
+import consumer_throughput as consumer
+import producer_throughput as producer
 import matplotlib.pyplot as plt  # Import matplotlib for plotting
 
 def main():
@@ -79,7 +48,7 @@ def main():
     plt.xlabel('Time (seconds)')
     plt.ylabel('Events per second')
     plt.title('Throughput Over Time')
-    plt.savefig("Producer_throughput.jpg")  # Save the plot as an image
+    plt.savefig("throughput_1000/Producer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
     # Plot a line graph for Latency Over Time
@@ -89,7 +58,7 @@ def main():
     plt.xlabel('Window id')
     plt.ylabel('Latency')
     plt.title('Latency Over Time')
-    plt.savefig("Consumer_latency.jpg")  # Save the plot as an image
+    plt.savefig("throughput_1000/Consumer_latency.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
     # Plot a line graph for Consumer Throughput Over Time
@@ -99,7 +68,7 @@ def main():
     plt.xlabel('Window id')
     plt.ylabel('Matches per window id')
     plt.title('Consumer Throughput Over Time')
-    plt.savefig("Consumer_throughput.jpg")  # Save the plot as an image
+    plt.savefig("throughput_1000/Consumer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
  

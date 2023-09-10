@@ -14,7 +14,6 @@ def generate_data(throughput_per_second, duration, end_event, data_lock, generat
     events_per_file = 0
     start = time.time()
     end = start + duration
-
     while time.time() < end:
         filename = f"output_2/{file_number}.csv"  # Construct the filename
         print("Writing", filename)
@@ -26,8 +25,7 @@ def generate_data(throughput_per_second, duration, end_event, data_lock, generat
             writer.writeheader()
 
             start_time = time.time()  # Get the start time
-            end_time = start_time + duration
-
+            end_time = start_time + 1       
             while True:
                 timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 integer = random.randint(1, 10)
@@ -36,8 +34,9 @@ def generate_data(throughput_per_second, duration, end_event, data_lock, generat
                 elapsed_time = time.time() - start_time  # Calculate elapsed time
                 events_per_file += 1  # Counting the number of rows
 
-                if elapsed_time >= 1:  # Check if 1 second has passed
+                if elapsed_time >= 1 or events_per_file>=throughput_per_second:  # Check if 1 second has passed
                     with data_lock:
+                        time.sleep(end_time - time.time())
                         generated_data.append(events_per_file)
                     events_per_file = 0
                     break
