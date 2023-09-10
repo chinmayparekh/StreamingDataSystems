@@ -45,7 +45,6 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
                 average_throughput = total_matches / window_duration
                 average_latency = latency / total_events
                 throughput_data.append(average_throughput)
-                latency_data.append(average_latency)
 
                 return
             
