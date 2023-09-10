@@ -65,7 +65,8 @@ def main():
     plt.title('Consumer Throughput Over Time')
     plt.savefig("throughput_13000/Consumer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
-
+    
+    print("Throughput for producer ",generated_data)
     print("Throughput for consumer ",throughput_data)
     print("Latency = ",latency_data)
 if __name__ == '__main__':
