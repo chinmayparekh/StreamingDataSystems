@@ -9,13 +9,15 @@ from threading import Lock
 from datetime import timedelta
 
 
-def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, latency_data):
+def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, latency_data,end):
     print("Sleeping...")
-    time.sleep(window_duration)
+    time.sleep(end)
     pattern = re.compile(regex_pattern)
     count = 1
     window_id = 1
-    # latency_data.append(window_duration)
+
+    latency_data.append(end)
+    print("Running with latency ",end)
     while True:
         start_time = None
         data = ""
@@ -58,7 +60,6 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
                         start_time = timestamp
 
                     time_difference = (timestamp - start_time).total_seconds()
-
                     
                     if time_difference < window_duration:
                         data += event
@@ -71,8 +72,6 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
         total_matches += matches
         start_time = timestamp
         data = ""
-        latency_data.append(window_duration)
-        time.sleep(window_duration)
         window_id += 1
         count += window_duration
 
@@ -80,6 +79,7 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
             # Calculate and append the average throughput and latency to the lists
             average_throughput = total_matches / window_duration
             throughput_data.append(average_throughput)
-            latency_data.append(latency)
 
+            latency_data.append(latency)
+            
         
