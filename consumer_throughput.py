@@ -27,8 +27,8 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
         latency=0
         for i in range(count, count + window_duration):
             print("Reading from ",count, count+window_duration-1)
-            while retries < 3:  # Retry up to 3 times if the file doesn't exist
-                filename = os.path.join("output_2", f"{i}.csv")
+            while retries < 5:  # Retry up to 3 times if the file doesn't exist
+                filename = os.path.join("data", f"{i}.csv")
                 
                 if not os.path.exists(filename):
                     print(f"File {filename} does not exist. Retrying after a second.")
@@ -37,7 +37,7 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
                 else:
                     break  # File exists, exit the retry loop
             
-            if retries == 3:
+            if retries == 5:
                 matches = len(re.findall(pattern, data))
                 total_matches += matches
                 print(f"Window {window_id} having {start_time} - {timestamp}: Matches: {matches}")
@@ -86,12 +86,3 @@ def consumer_task(regex_pattern, window_duration, data_lock, throughput_data, la
             latency_data.append(average_latency)
 
         
-
-if __name__ == '__main__':
-    regex_pattern = r'([BCDFGHJKLMNPQRSTVWXYZ][AEIOU])+[BCDFGHJKLMNPQRSTVWXYZ]?'
-    window_duration = 10  # Fixed window duration of 10 seconds
-    duration = 60
-    data_lock = Lock()
-    throughput_data = []  # List to store throughput data
-    latency_data = []  # List to store latency data
-    consumer_task(regex_pattern, window_duration, data_lock, throughput_data, latency_data)

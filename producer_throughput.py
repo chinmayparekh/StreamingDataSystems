@@ -7,15 +7,15 @@ from datetime import datetime
 from threading import Event, Lock
 
 def generate_data(throughput_per_second, duration, end_event, data_lock, generated_data):
-    if not os.path.exists("output_2"):
-        os.makedirs("output_2")
+    if not os.path.exists("data"):
+        os.makedirs("data")
 
     file_number = 1  # Initialize the file number
     events_per_file = 0
     start = time.time()
     end = start + duration
     while time.time() < end:
-        filename = f"output_2/{file_number}.csv"  # Construct the filename
+        filename = f"data/{file_number}.csv"  # Construct the filename
         print("Writing", filename)
         file_number += 1  # Increment the file number
 
@@ -36,7 +36,9 @@ def generate_data(throughput_per_second, duration, end_event, data_lock, generat
 
                 if elapsed_time >= 1 or events_per_file>=throughput_per_second:  # Check if 1 second has passed
                     with data_lock:
-                        time.sleep(end_time - time.time())
+                        current_time = time.time()
+                        time_to_next_second = 1.0 - (current_time - int(current_time))
+                        time.sleep(time_to_next_second)
                         generated_data.append(events_per_file)
                     events_per_file = 0
                     break
@@ -44,11 +46,3 @@ def generate_data(throughput_per_second, duration, end_event, data_lock, generat
     print("Data generation completed.")
     end_event.set()  # Signal the end of data generation
 
-if __name__ == '__main__':
-    duration = 60
-    throughput_per_second = 10000
-    end_event = Event()
-    data_lock = Lock()
-    generated_data = []
-
-    generate_data(throughput_per_second, duration, end_event, data_lock, generated_data)

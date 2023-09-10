@@ -4,11 +4,13 @@ from threading import Thread, Event, Lock
 import consumer_throughput as consumer
 import producer_throughput as producer
 import matplotlib.pyplot as plt  # Import matplotlib for plotting
-
+import os
 def main():
+    if not os.path.exists("throughput_13000"):
+        os.makedirs("throughput_13000")
     regex_pattern = r'([BCDFGHJKLMNPQRSTVWXYZ][AEIOU])+[BCDFGHJKLMNPQRSTVWXYZ]?'
     duration = 60
-    throughput_per_second = 10000
+    throughput_per_second = 13000
     window_duration = 10  # Fixed window duration of 10 seconds
 
     current_time = time.time()
@@ -48,7 +50,7 @@ def main():
     plt.xlabel('Time (seconds)')
     plt.ylabel('Events per second')
     plt.title('Throughput Over Time')
-    plt.savefig("throughput_1000/Producer_throughput.jpg")  # Save the plot as an image
+    plt.savefig("throughput_13000/Producer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
     # Plot a line graph for Latency Over Time
@@ -58,7 +60,7 @@ def main():
     plt.xlabel('Window id')
     plt.ylabel('Latency')
     plt.title('Latency Over Time')
-    plt.savefig("throughput_1000/Consumer_latency.jpg")  # Save the plot as an image
+    plt.savefig("throughput_13000/Consumer_latency.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
     # Plot a line graph for Consumer Throughput Over Time
@@ -68,7 +70,7 @@ def main():
     plt.xlabel('Window id')
     plt.ylabel('Matches per window id')
     plt.title('Consumer Throughput Over Time')
-    plt.savefig("throughput_1000/Consumer_throughput.jpg")  # Save the plot as an image
+    plt.savefig("throughput_13000/Consumer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
  
