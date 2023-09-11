@@ -1,0 +1,181 @@
+Number of False Positives:  8437
+Number of Lookup Count:  9535
+Target False Positive Rate (0.8):
+Optimal k: 1
+Optimal n: 1000
+Number of False Positives:  8053
+Number of Lookup Count:  9151
+Target False Positive Rate (0.8):
+Optimal k: 1
+Optimal n: 2000
+Number of False Positives:  7928
+Number of Lookup Count:  9026
+Target False Positive Rate (0.8):
+Optimal k: 1
+Optimal n: 3000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 1
+Optimal n: 4000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 1
+Optimal n: 5000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 1
+Optimal n: 6000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 1
+Optimal n: 7000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 1
+Optimal n: 8000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 1
+Optimal n: 9000
+Number of False Positives:  8552
+Number of Lookup Count:  9650
+Target False Positive Rate (0.8):
+Optimal k: 2
+Optimal n: 1000
+Number of False Positives:  8163
+Number of Lookup Count:  9261
+Target False Positive Rate (0.8):
+Optimal k: 2
+Optimal n: 2000
+Number of False Positives:  7937
+Number of Lookup Count:  9035
+Target False Positive Rate (0.8):
+Optimal k: 2
+Optimal n: 3000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 2
+Optimal n: 4000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 2
+Optimal n: 5000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 2
+Optimal n: 6000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 2
+Optimal n: 7000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 2
+Optimal n: 8000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 2
+Optimal n: 9000
+Number of False Positives:  8628
+Number of Lookup Count:  9726
+Target False Positive Rate (0.8):
+Optimal k: 3
+Optimal n: 1000
+Number of False Positives:  8232
+Number of Lookup Count:  9330
+Target False Positive Rate (0.8):
+Optimal k: 3
+Optimal n: 2000
+Number of False Positives:  7950
+Number of Lookup Count:  9048
+Target False Positive Rate (0.8):
+Optimal k: 3
+Optimal n: 3000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 3
+Optimal n: 4000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 3
+Optimal n: 5000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 3
+Optimal n: 6000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 3
+Optimal n: 7000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 3
+Optimal n: 8000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 3
+Optimal n: 9000
+Number of False Positives:  8671
+Number of Lookup Count:  9769
+Target False Positive Rate (0.8):
+Optimal k: 4
+Optimal n: 1000
+Number of False Positives:  8280
+Number of Lookup Count:  9378
+Target False Positive Rate (0.8):
+Optimal k: 4
+Optimal n: 2000
+Number of False Positives:  7960
+Number of Lookup Count:  9058
+Target False Positive Rate (0.8):
+Optimal k: 4
+Optimal n: 3000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 4
+Optimal n: 4000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 4
+Optimal n: 5000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 4
+Optimal n: 6000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 4
+Optimal n: 7000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 4
+Optimal n: 8000
+Number of False Positives:  7903
+Number of Lookup Count:  9001
+Target False Positive Rate (0.8):
+Optimal k: 4
+Optimal n: 9000
+The best values are k =  4  and n =  9000  and FPR =  0.46752247988641743
