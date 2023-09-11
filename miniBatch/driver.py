@@ -6,11 +6,11 @@ import producer_throughput as producer
 import matplotlib.pyplot as plt  # Import matplotlib for plotting
 import os
 def main():
-    if not os.path.exists("throughput_75000"):
-        os.makedirs("throughput_75000")
+    if not os.path.exists("throughput_150000_only_producer"):
+        os.makedirs("throughput_150000_only_producer")
     regex_pattern = r'([BCDFGHJKLMNPQRSTVWXYZ][AEIOU])+[BCDFGHJKLMNPQRSTVWXYZ]?'
     duration = 100
-    throughput_per_second = 75000
+    throughput_per_second = 150000
     window_duration = 10  # Fixed window duration of 10 seconds
 
     current_time = time.time()
@@ -33,15 +33,15 @@ def main():
     producer_thread.start()
 
     # Start the consumer thread
-    consumer_thread = Thread(target=consumer.consumer_task, args=(regex_pattern, window_duration, matches_data,throughput_data, latency_data))
-    consumer_thread.start()
+    # consumer_thread = Thread(target=consumer.consumer_task, args=(regex_pattern, window_duration, matches_data,throughput_data, latency_data))
+    # consumer_thread.start()
 
     # Wait for the producer thread to finish
     producer_thread.join()
-    data_generation_event.set()  # Signal the end of data generation
+    # data_generation_event.set()  # Signal the end of data generation
 
     # Wait for the consumer thread to finish
-    consumer_thread.join()
+    # consumer_thread.join()
 
     # Plot a line graph for Throughput Over Time
     x_values = list(range(1, len(generated_data) + 1))
@@ -50,33 +50,33 @@ def main():
     plt.xlabel('Time (seconds)')
     plt.ylabel('Events per second')
     plt.title('Throughput Over Time')
-    plt.savefig("throughput_75000/Producer_throughput.jpg")  # Save the plot as an image
+    plt.savefig("throughput_150000_only_producer/Producer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
     # Plot a line graph for Consumer Throughput Over Time
-    x_values = list(range(1, len(throughput_data) + 1))
-    y_values = throughput_data
-    plt.plot(x_values, y_values)
-    plt.xlabel('Window id')
-    plt.ylabel('Matches per window id')
-    plt.title('Consumer Throughput Over Time')
-    plt.savefig("throughput_75000/Consumer_throughput.jpg")  # Save the plot as an image
-    plt.show()  # Show the plot
+    # x_values = list(range(1, len(throughput_data) + 1))
+    # y_values = throughput_data
+    # plt.plot(x_values, y_values)
+    # plt.xlabel('Window id')
+    # plt.ylabel('Matches per window id')
+    # plt.title('Consumer Throughput Over Time')
+    # plt.savefig("throughput_75000/Consumer_throughput.jpg")  # Save the plot as an image
+    # plt.show()  # Show the plot
 
-    # Plot a line graph for Matches Over Time
-    x_values = list(range(1, len(matches_data) + 1))
-    y_values = matches_data
-    plt.plot(x_values, y_values)
-    plt.xlabel('Window id')
-    plt.ylabel('Matches per window id')
-    plt.title('Matches')
-    plt.savefig("throughput_75000/Matches.jpg")  # Save the plot as an image
-    plt.show()  # Show the plot
+    # # Plot a line graph for Matches Over Time
+    # x_values = list(range(1, len(matches_data) + 1))
+    # y_values = matches_data
+    # plt.plot(x_values, y_values)
+    # plt.xlabel('Window id')
+    # plt.ylabel('Matches per window id')
+    # plt.title('Matches')
+    # plt.savefig("throughput_75000/Matches.jpg")  # Save the plot as an image
+    # plt.show()  # Show the plot
 
     print("Throughput for producer ",generated_data)
-    print("Throughput for consumer ",throughput_data)
-    print("Latency = ",latency_data)
-    print("Matches = ",matches_data)
+    # print("Throughput for consumer ",throughput_data)
+    # print("Latency = ",latency_data)
+    # print("Matches = ",matches_data)
 
 if __name__ == '__main__':
     main()
