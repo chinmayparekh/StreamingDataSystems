@@ -79,6 +79,7 @@ def consumer_task(regex_pattern, window_duration, matches_data, throughput_data,
         matches_data.append(matches)
         #Adding throughput
         average_throughput = total_events / difference
+        print("Total events = ",total_events)
         throughput_data.append(average_throughput)
         #Printing matches
         print(f"Window {window_id} having {start_time} - {timestamp}: Matches: {matches}")

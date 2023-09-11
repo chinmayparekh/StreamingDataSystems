@@ -6,11 +6,11 @@ import producer_throughput as producer
 import matplotlib.pyplot as plt  # Import matplotlib for plotting
 import os
 def main():
-    if not os.path.exists("throughput_15000"):
-        os.makedirs("throughput_15000")
+    if not os.path.exists("throughput_150000"):
+        os.makedirs("throughput_150000")
     regex_pattern = r'([BCDFGHJKLMNPQRSTVWXYZ][AEIOU])+[BCDFGHJKLMNPQRSTVWXYZ]?'
     duration = 100
-    throughput_per_second = 15000
+    throughput_per_second = 150000
     window_duration = 10  # Fixed window duration of 10 seconds
 
     current_time = time.time()
@@ -52,7 +52,7 @@ def main():
     plt.xlabel('Time (seconds)')
     plt.ylabel('Events per second')
     plt.title('Throughput Over Time')
-    plt.savefig("throughput_15000/Producer_throughput.jpg")  # Save the plot as an image
+    plt.savefig("throughput_150000/Producer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
     
@@ -63,7 +63,7 @@ def main():
     plt.xlabel('Window id')
     plt.ylabel('Matches per window id')
     plt.title('Consumer Throughput Over Time')
-    plt.savefig("throughput_15000/Consumer_throughput.jpg")  # Save the plot as an image
+    plt.savefig("throughput_150000/Consumer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
     # Plot a line graph for Matches Over Time
@@ -73,7 +73,7 @@ def main():
     plt.xlabel('Window id')
     plt.ylabel('Matches per window id')
     plt.title('Matches')
-    plt.savefig("throughput_15000/Matches.jpg")  # Save the plot as an image
+    plt.savefig("throughput_150000/Matches.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
     
     print("Throughput for producer ",generated_data)
@@ -98,3 +98,19 @@ if __name__ == '__main__':
 # Throughput for consumer  [1278.9194303484294, 1395.7295442897944, 1536.5776397221869, 1708.9757800534499, 1930.5762407724396, 2231.514745514711, 2643.1326473197764, 3236.8541641830034, 4183.680434526061, 5907.740990274632, 759.7046572174601]
 # Latency =  [100, 0.000101648311, 9.314125400000001e-05, 8.46036e-05, 7.6068954e-05, 6.733740799999999e-05, 5.8256393e-05, 4.9184062e-05, 4.0162452e-05, 3.1073119e-05, 2.2005026999999997e-05]
 # Matches =  [17064, 16966, 17082, 17178, 17087, 17099, 17051, 17157, 17116, 17015, 1651]
+
+# duration = 100
+# throughput_per_second = 50000
+# window_duration = 10 
+# Throughput for producer  [50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 12006]
+# Throughput for consumer  [4732.94540156538, 5028.606131126014, 5391.2764144509665, 5811.664368385876, 6296.204301755665, 6870.239087480554, 7549.992767861928, 8274.871777965596, 9191.046714634616, 10390.112569388808, 277.6065056573598]
+# Latency =  [100, 0.000105642461, 9.9431132e-05, 9.2742416e-05, 8.6033874e-05, 7.9412925e-05, 7.2777671e-05, 6.6225229e-05, 6.0423896999999994e-05, 5.4400768e-05, 4.8122674e-05]
+# Matches =  [65249, 65544, 65764, 65635, 65506, 65648, 65519, 65882, 65809, 65534, 1554]
+
+# duration = 100
+# throughput_per_second = 150000
+# window_duration = 10 
+# Throughput for producer  [91706, 91860, 90898, 92283, 93020, 92279, 90840, 92650, 92112, 92521, 91017, 91371, 92821, 92376, 91884, 92566, 92576, 92112, 90083, 91790, 92000, 91823, 91816, 89176, 92704, 91110, 91637, 91670, 92129, 91926, 92098, 90891, 91493, 91942, 90523, 92857, 92285, 92961, 92864, 91680, 91985, 91655, 91979, 92114, 91847, 92343, 91802, 90958, 91260, 91509, 78447]
+# Throughput for consumer  [8374.704892515068, 9586.745695497477, 11207.603489103178, 13579.859100511285, 17106.60729776028, 2002.7563269989691]
+# Latency =  [100, 0.000109874797, 9.5819377e-05, 8.172942600000001e-05, 6.771749199999999e-05, 5.3631441e-05]
+# Matches =  [60244, 60326, 60053, 60001, 60242, 10259]
