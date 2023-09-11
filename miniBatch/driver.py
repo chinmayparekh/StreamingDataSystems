@@ -9,8 +9,8 @@ def main():
     if not os.path.exists("throughput_15000"):
         os.makedirs("throughput_15000")
     regex_pattern = r'([BCDFGHJKLMNPQRSTVWXYZ][AEIOU])+[BCDFGHJKLMNPQRSTVWXYZ]?'
-    duration = 20
-    throughput_per_second = 13000
+    duration = 100
+    throughput_per_second = 15000
     window_duration = 10  # Fixed window duration of 10 seconds
 
     current_time = time.time()
@@ -22,7 +22,6 @@ def main():
 
     # Create a lock for accessing the shared data (if needed)
     data_lock = Lock()
-    data_lock_consumer = Lock()
 
     # Create a variable to hold the generated data
     generated_data = []
@@ -63,11 +62,20 @@ def main():
     plt.title('Consumer Throughput Over Time')
     plt.savefig("throughput_15000/Consumer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
-    print("Throughput for producer ",generated_data)
 
+    # Plot a line graph for Matches Over Time
+    x_values = list(range(1, len(matches_data) + 1))
+    y_values = matches_data
+    plt.plot(x_values, y_values)
+    plt.xlabel('Window id')
+    plt.ylabel('Matches per window id')
+    plt.title('Matches')
+    plt.savefig("throughput_15000/Matches.jpg")  # Save the plot as an image
+    plt.show()  # Show the plot
+
+    print("Throughput for producer ",generated_data)
     print("Throughput for consumer ",throughput_data)
     print("Latency = ",latency_data)
- 
     print("Matches = ",matches_data)
 
 if __name__ == '__main__':
@@ -82,10 +90,10 @@ if __name__ == '__main__':
 # Matches =  [19803, 17099, 1957]
 
 
-# duration = 20
+# duration = 100
 # throughput_per_second = 13000
 # window_duration = 10 
-# Throughput for producer  [13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000]
-# Throughput for consumer  [10883.983765784707, 9804.293671573543, 11.93643417182046]
-# Latency =  [1.1944156e-05, 10, 1.3463488999999999e-05, 10]
-# Matches =  [17121, 17215, 1970]
+# Throughput for producer  [13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 6769, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 5867, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 7825, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 8150, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000, 13000]
+# Throughput for consumer  [11070.748298276958, 9742.490975080957, 8351.67946566094, 8432.324498678849, 7241.912239224821, 7378.830521204261, 6845.4559553519975, 6700.28785271809, 6792.714009549407, 2611.8688544483844]
+# Latency =  [1.1742657e-05, 10, 1.334361e-05, 10, 1.4819654e-05, 10, 1.5416864e-05, 10, 1.6966099e-05, 10, 1.7617968000000002e-05, 10, 1.8234724e-05, 10, 1.8678302e-05, 10, 1.9138153e-05, 10]
+# Matches =  [16929, 17087, 14548, 17150, 14243, 15359, 14684, 14683, 16992, 8488]
