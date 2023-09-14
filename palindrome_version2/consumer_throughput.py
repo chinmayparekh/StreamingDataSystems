@@ -65,12 +65,12 @@ def compute_occurence(data, character, window_size):
         result.append(window_result)
     return result
 
-def findPattern(data,pattern,timings,palindromic_pattern_2):
-    # print(data)
+def findPattern(data,pattern,timings):
+    print(data)
     character,interval=decode(pattern)
     print(character,interval)
     time_diff=transform_time(timings)
-    # print(time_diff)
+    print(time_diff)
     indices=list(range(len(data)))
     data=transform_data(data,time_diff,indices,character)
     print(data)
@@ -85,7 +85,7 @@ def checkValid(input_string):
     is_sorted_descending = all(extracted_digits[i] >= extracted_digits[i + 1] for i in range(len(extracted_digits) - 1))
     return extracted_digits, is_sorted_descending
 
-def consumer_task(palindromic_pattern,palindromic_pattern_2, window_duration, matches_data, throughput_data, latency_data):
+def consumer_task(palindromic_pattern, window_duration, matches_data, throughput_data, latency_data):
     print("Sleeping...")
     time.sleep(window_duration)
     count = 1
@@ -114,7 +114,7 @@ def consumer_task(palindromic_pattern,palindromic_pattern_2, window_duration, ma
             currentTime = datetime.now()
             if retries == 5:
                 #Adding the matches
-                matches = findPattern(data,palindromic_pattern,palindromic_pattern_2,timings)
+                matches = findPattern(data,palindromic_pattern,timings)
                 total_matches += matches
                 matches_data.append(matches)
                 #Adding the throughput
@@ -151,7 +151,7 @@ def consumer_task(palindromic_pattern,palindromic_pattern_2, window_duration, ma
         latency = (difference/1000000)
         latency_data.append(latency)
         #Adding matches
-        matches = findPattern(data,palindromic_pattern,palindromic_pattern_2,timings)
+        matches = findPattern(data,palindromic_pattern,timings)
         total_matches += matches
         matches_data.append(matches)
         #Adding throughput

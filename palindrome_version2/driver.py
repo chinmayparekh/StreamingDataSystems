@@ -9,7 +9,6 @@ def main():
     if not os.path.exists("sanityCheck"):
         os.makedirs("sanityCheck")
     palindromic_pattern="ABC[2]"
-    palindromic_pattern_2="CBA[2]"
     flag = consumer.checkValid(palindromic_pattern)
     if(flag[1]):
         duration = 20
@@ -36,7 +35,7 @@ def main():
         producer_thread.start()
 
         # Start the consumer thread
-        consumer_thread = Thread(target=consumer.consumer_task, args=(palindromic_pattern,palindromic_pattern_2, window_duration, matches_data,throughput_data, latency_data))
+        consumer_thread = Thread(target=consumer.consumer_task, args=(palindromic_pattern, window_duration, matches_data,throughput_data, latency_data))
         consumer_thread.start()
 
         # Wait for the producer thread to finish
