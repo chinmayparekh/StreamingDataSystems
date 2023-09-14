@@ -23,7 +23,7 @@ def consumer_task(regex_pattern, window_duration, matches_data, throughput_data,
         total_events=0
         latency=0
         for i in range(count, count + window_duration):
-            while retries < 10:  # Retry up to 3 times if the file doesn't exist
+            while retries < 5:  # Retry up to 3 times if the file doesn't exist
                 filename = os.path.join("data", f"{i}.csv")
                 
                 if not os.path.exists(filename):
@@ -33,7 +33,7 @@ def consumer_task(regex_pattern, window_duration, matches_data, throughput_data,
                 else:
                     break  # File exists, exit the retry loop
             currentTime = datetime.now()
-            if retries == 10:
+            if retries == 5:
                 #Adding the matches
                 matches = len(re.findall(pattern, data))
                 total_matches += matches

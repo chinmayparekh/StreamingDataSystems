@@ -32,12 +32,18 @@ def generate_data(throughput_per_second, duration, end_event, data_lock, generat
                 events_per_file += 1
                 # char = random.choice(string.ascii_uppercase)
                 char=''
-                if events_per_file%3==1:
+                if events_per_file%6==1:
                     char = 'A'
-                elif events_per_file%3==2:
+                elif events_per_file%6==2:
                     char = 'B'
-                else:
+                elif events_per_file%6==3:
                     char='C'
+                elif events_per_file%6==4:
+                    char = 'C'
+                elif events_per_file%6==5:
+                    char='B'
+                else:
+                    char='A'
                 writer.writerow({'t': timestamp, 'integer': integer, 'char': char})
                 elapsed_time = time.time() - start_time  # Calculate elapsed time
                   # Counting the number of rows

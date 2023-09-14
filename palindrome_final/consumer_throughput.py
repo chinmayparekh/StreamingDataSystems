@@ -43,7 +43,7 @@ def transform_time(timings):
     time_diffs_seconds = [(timing - first_timing).total_seconds() for timing in timings]
     return time_diffs_seconds
 
-def compute_occurence(data, character, window_size):
+def compute_occurence(data, window_size):
     result = []
     for i in range(len(data) - window_size + 1):
         window_data = {k: v for k, v in data.items() if k in range(i, i + window_size)}
@@ -65,27 +65,36 @@ def compute_occurence(data, character, window_size):
         result.append(window_result)
     return result
 
-def compute_occurence_palind(data,character,interval):
-    pass
+def compute_occurence_palindrome(data_1,data_2,window_size):
+    result = []
+    for i in range(len(data_1) - window_size + 1):
+        window_data_1 = {k: v for k, v in data_1.items() if k in range(i, i + window_size)}
+        window_data_2 = {k: v for k, v in data_2.items() if k in range(i, i + window_size)}
+        print("Window Data 1:", window_data_1)
+        print("Window Data 2:", window_data_2)
+        window_result = 0  # Initialize the window result to zero
+        
+        # Calculate the result for the current window
+        for k, v in window_data_1.items():
+            if k == i:
+                continue
+            start = v  # Use the value from data_1 as the start value
+            print("Multiplying ",start," ",window_data_2[k])
+            product = start * window_data_2[k]  # Multiply by the corresponding value from data_2
+            window_result += product
+
+        result.append(window_result)
+    return result
+
 def findPattern(data,pattern,pattern2,timings):
-    print(data)
+    # print(data)
     character,interval=decode(pattern)
     character_2,interval_2=decode(pattern2)
-    print(character,interval)
-    print("***********************************************")
-    print(character_2,interval_2)
     time_diff=transform_time(timings)
-    # print(time_diff)
     indices=list(range(len(data)))
-    print(data)
-    # data_2=data
     data_1=transform_data(data,time_diff,indices,character)
     data_2=transform_data(data,time_diff,indices,character_2)
-
-    print(data_1)
-    print("***********************************************")
-    print(data_2)
-    result=compute_occurence(data_1,character,int(interval))
+    result=compute_occurence_palindrome(data_1,data_2,interval)
     return sum(result)
 
 def checkValid(input_string):

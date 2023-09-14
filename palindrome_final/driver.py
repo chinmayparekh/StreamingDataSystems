@@ -6,15 +6,15 @@ import producer_throughput as producer
 import matplotlib.pyplot as plt  # Import matplotlib for plotting
 import os
 def main():
-    if not os.path.exists("sanityCheck"):
-        os.makedirs("sanityCheck")
-    palindromic_pattern="A[2]B[2]C[2]"
-    palindromic_pattern_2="C[2]B[2]A[2]"
+    if not os.path.exists("throughput_15000"):
+        os.makedirs("throughput_15000")
+    palindromic_pattern="A[4]B[4]C[4]"
+    palindromic_pattern_2="C[4]B[4]A[4]"
 
     flag = consumer.checkValid(palindromic_pattern)
     if(flag[1]):
         duration = 20
-        throughput_per_second = 100
+        throughput_per_second = 1500
         window_duration = 10  # Fixed window duration of 10 seconds
 
         current_time = time.time()
@@ -54,7 +54,7 @@ def main():
         plt.xlabel('Time (seconds)')
         plt.ylabel('Events per second')
         plt.title('Throughput Over Time')
-        plt.savefig("sanityCheck/Producer_throughput.jpg")  # Save the plot as an image
+        plt.savefig("throughput_15000/Producer_throughput.jpg")  # Save the plot as an image
         plt.show()  # Show the plot
 
         # Plot a line graph for Consumer Throughput Over Time
@@ -64,7 +64,7 @@ def main():
         plt.xlabel('Window id')
         plt.ylabel('Matches per window id')
         plt.title('Consumer Throughput Over Time')
-        plt.savefig("sanityCheck/Consumer_throughput.jpg")  # Save the plot as an image
+        plt.savefig("throughput_15000/Consumer_throughput.jpg")  # Save the plot as an image
         plt.show()  # Show the plot
 
         # Plot a line graph for Matches Over Time
@@ -74,7 +74,7 @@ def main():
         plt.xlabel('Window id')
         plt.ylabel('Matches per window id')
         plt.title('Matches')
-        plt.savefig("sanityCheck/Matches.jpg")  # Save the plot as an image
+        plt.savefig("throughput_15000/Matches.jpg")  # Save the plot as an image
         plt.show()  # Show the plot
 
         print("Throughput for producer ",generated_data)
