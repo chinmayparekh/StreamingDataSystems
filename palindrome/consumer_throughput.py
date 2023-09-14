@@ -5,20 +5,69 @@ import re
 from datetime import datetime
 from threading import Lock
 from datetime import timedelta
+def decode(pattern):
+    character=""
+    interval=0
+    for char in pattern:
+        if char.isalpha():
+            character=char
+        elif char.isdigit():
+            interval=char
+    return character,interval
 
-def findPattern(data,pattern,timings,indices):
-    print(pattern)
-    print(len(data),len(timings),len(indices))
-    return 1
+def transform_data(data,timings,indices,pattern):
+    data_count = {}
+    
+    for index in indices:
+        timing = int(timings[index])
+        
+        if timing not in data_count:
+            data_count[timing] = 0
+        
+        if data[index] == pattern:
+            data_count[timing] += 1
+    return data_count
+
+def transform_time(timings): 
+    first_timing = timings[0]
+    time_diffs_seconds = [(timing - first_timing).total_seconds() for timing in timings]
+    return time_diffs_seconds
+
+def compute_occurence(data,character,window_size):
+    result = []
+    for i in range(len(data) - window_size + 1):
+        window_data = {k: v for k, v in data.items() if k in range(i, i + window_size)}
+        print(window_data)
+        window_result = 0  # Initialize the window result to zero
+        start=window_data[i]
+        # Calculate the result for the current window
+        for k, v in window_data.items():
+            if(k==i):
+                continue
+            product = v *start
+            # for k2, v2 in window_data.items():
+            #     product *= v2
+            window_result += product
+        
+        result.append(window_result)
+    return result
+    print("Final Result:", result)
+
+def findPattern(data,pattern,timings):
+    character,interval=decode(pattern)
+    time_diff=transform_time(timings)
+    indices=list(range(len(data)))
+    data=transform_data(data,time_diff,indices,character)
+    print(data)
+    result=compute_occurence(data,character,int(interval))
+    return sum(result)
 
 def checkValid(input_string):
     # Extract digits from the input string
     
     extracted_digits = [int(match) for match in re.findall(r'\d+', input_string)]
-    print(extracted_digits)
     # Check if the extracted digits are sorted in descending order
     is_sorted_descending = all(extracted_digits[i] >= extracted_digits[i + 1] for i in range(len(extracted_digits) - 1))
-    print(is_sorted_descending)
     return extracted_digits, is_sorted_descending
 
 def consumer_task(palindromic_pattern, window_duration, matches_data, throughput_data, latency_data):
@@ -26,13 +75,14 @@ def consumer_task(palindromic_pattern, window_duration, matches_data, throughput
     time.sleep(window_duration)
     count = 1
     window_id = 1
+    pattern_chars = set(palindromic_pattern)
+
     while True:
         start_time = None
         data = ""
         timestamp = None
         retries = 0
         timings=[]
-        indices=[]
         total_matches = 0
         total_events=0
         latency=0
@@ -49,7 +99,7 @@ def consumer_task(palindromic_pattern, window_duration, matches_data, throughput
             currentTime = datetime.now()
             if retries == 5:
                 #Adding the matches
-                matches = findPattern(data,palindromic_pattern,timings,indices)
+                matches = findPattern(data,palindromic_pattern,timings)
                 total_matches += matches
                 matches_data.append(matches)
                 #Adding the throughput
@@ -77,16 +127,16 @@ def consumer_task(palindromic_pattern, window_duration, matches_data, throughput
                     time_difference = (timestamp - start_time).total_seconds()
                     
                     if time_difference < window_duration:
-                        data += event
-                        timings.append(timestamp)
-                        indices.append(total_events)
+                        if event in pattern_chars:
+                            data += event
+                            timings.append(timestamp)
         #Adding latency
         currentTime = datetime.now()
         difference = (currentTime - start_time).total_seconds()
         latency = (difference/1000000)
         latency_data.append(latency)
         #Adding matches
-        matches = findPattern(data,palindromic_pattern,timings,indices)
+        matches = findPattern(data,palindromic_pattern,timings)
         total_matches += matches
         matches_data.append(matches)
         #Adding throughput
