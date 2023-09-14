@@ -6,11 +6,11 @@ import producer_throughput as producer
 import matplotlib.pyplot as plt  # Import matplotlib for plotting
 import os
 def main():
-    if not os.path.exists("throughput_75000"):
-        os.makedirs("throughput_75000")
+    if not os.path.exists("throughput_100"):
+        os.makedirs("throughput_100")
     regex_pattern = r'([BCDFGHJKLMNPQRSTVWXYZ][AEIOU])+[BCDFGHJKLMNPQRSTVWXYZ]?'
     duration = 100
-    throughput_per_second = 75000
+    throughput_per_second = 100
     window_duration = 10  # Fixed window duration of 10 seconds
     slice_duration=1
     current_time = time.time()
@@ -50,7 +50,7 @@ def main():
     plt.xlabel('Time (seconds)')
     plt.ylabel('Events per second')
     plt.title('Throughput Over Time')
-    plt.savefig("throughput_75000/Producer_throughput.jpg")  # Save the plot as an image
+    plt.savefig("throughput_100/Producer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
     # Plot a line graph for Consumer Throughput Over Time
@@ -60,7 +60,7 @@ def main():
     plt.xlabel('Window id')
     plt.ylabel('Matches per window id')
     plt.title('Consumer Throughput Over Time')
-    plt.savefig("throughput_75000/Consumer_throughput.jpg")  # Save the plot as an image
+    plt.savefig("throughput_100/Consumer_throughput.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
     # Plot a line graph for Matches Over Time
@@ -70,7 +70,7 @@ def main():
     plt.xlabel('Window id')
     plt.ylabel('Matches per window id')
     plt.title('Matches')
-    plt.savefig("throughput_75000/Matches.jpg")  # Save the plot as an image
+    plt.savefig("throughput_100/Matches.jpg")  # Save the plot as an image
     plt.show()  # Show the plot
 
     print("t=",generated_data)

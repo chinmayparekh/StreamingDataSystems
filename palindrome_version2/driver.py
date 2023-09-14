@@ -6,13 +6,14 @@ import producer_throughput as producer
 import matplotlib.pyplot as plt  # Import matplotlib for plotting
 import os
 def main():
-    if not os.path.exists("throughput_150"):
-        os.makedirs("throughput_150")
-    palindromic_pattern="A[2]"
+    if not os.path.exists("sanityCheck"):
+        os.makedirs("sanityCheck")
+    palindromic_pattern="ABC[2]"
+    palindromic_pattern_2="CBA[2]"
     flag = consumer.checkValid(palindromic_pattern)
     if(flag[1]):
         duration = 20
-        throughput_per_second = 150
+        throughput_per_second = 100
         window_duration = 10  # Fixed window duration of 10 seconds
 
         current_time = time.time()
@@ -35,7 +36,7 @@ def main():
         producer_thread.start()
 
         # Start the consumer thread
-        consumer_thread = Thread(target=consumer.consumer_task, args=(palindromic_pattern, window_duration, matches_data,throughput_data, latency_data))
+        consumer_thread = Thread(target=consumer.consumer_task, args=(palindromic_pattern,palindromic_pattern_2, window_duration, matches_data,throughput_data, latency_data))
         consumer_thread.start()
 
         # Wait for the producer thread to finish
@@ -52,7 +53,7 @@ def main():
         plt.xlabel('Time (seconds)')
         plt.ylabel('Events per second')
         plt.title('Throughput Over Time')
-        plt.savefig("throughput_150/Producer_throughput.jpg")  # Save the plot as an image
+        plt.savefig("sanityCheck/Producer_throughput.jpg")  # Save the plot as an image
         plt.show()  # Show the plot
 
         # Plot a line graph for Consumer Throughput Over Time
@@ -62,7 +63,7 @@ def main():
         plt.xlabel('Window id')
         plt.ylabel('Matches per window id')
         plt.title('Consumer Throughput Over Time')
-        plt.savefig("throughput_150/Consumer_throughput.jpg")  # Save the plot as an image
+        plt.savefig("sanityCheck/Consumer_throughput.jpg")  # Save the plot as an image
         plt.show()  # Show the plot
 
         # Plot a line graph for Matches Over Time
@@ -72,7 +73,7 @@ def main():
         plt.xlabel('Window id')
         plt.ylabel('Matches per window id')
         plt.title('Matches')
-        plt.savefig("throughput_150/Matches.jpg")  # Save the plot as an image
+        plt.savefig("sanityCheck/Matches.jpg")  # Save the plot as an image
         plt.show()  # Show the plot
 
         print("Throughput for producer ",generated_data)
@@ -84,3 +85,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# Sanity Check
+# Throughput for producer  [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+# Throughput for consumer  [99.56094618342571, 99.30652269074598, 6.627070802232766]
+# Latency =  [1.0044099e-05, 10, 1.0069832e-05, 10]
+# Matches =  [9801, 9801, 0]
