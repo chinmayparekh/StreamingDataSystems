@@ -15,10 +15,10 @@ def consumer_task(regex_pattern, window_duration, matches_data, throughput_data,
     pattern = re.compile(regex_pattern)
     count = 1
     window_id = 1
-
+    start_time=datetime.now()
     latency_data.append(end)
     while True:
-        start_time = None
+        # start_time = None
         data = ""
         timestamp = None
         retries = 0

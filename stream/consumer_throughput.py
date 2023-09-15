@@ -88,7 +88,7 @@ def consumer_task(regex_pattern, window_duration,slice_duration, matches_data, t
             difference = (currentTime - window_start_time).total_seconds()
             print("Total events = ",total_events)
             # print(start_time," is the start time")
-            latency = (difference/1000000)
+            latency = (difference)
             latency_data.append(latency)
             average_throughput = total_events / (difference)
             throughput_data.append(average_throughput)
@@ -105,7 +105,7 @@ def consumer_task(regex_pattern, window_duration,slice_duration, matches_data, t
         count+=slice_duration
         time.sleep(slice_duration)
         #Adding latency for the window 
-        latency_data.append(slice_duration)
+        # latency_data.append(slice_duration)
         
 
         

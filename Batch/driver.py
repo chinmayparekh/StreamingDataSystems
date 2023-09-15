@@ -9,7 +9,7 @@ def main():
     if not os.path.exists("throughput_75000"):
         os.makedirs("throughput_75000")
     regex_pattern = r'([BCDFGHJKLMNPQRSTVWXYZ][AEIOU])+[BCDFGHJKLMNPQRSTVWXYZ]?'
-    duration = 100
+    duration = 20
     throughput_per_second = 75000
     window_duration = 10  # Fixed window duration of 10 seconds
 

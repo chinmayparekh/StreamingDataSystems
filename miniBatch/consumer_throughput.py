@@ -67,7 +67,7 @@ def consumer_task(regex_pattern, window_duration, matches_data, throughput_data,
         #Adding latency
         currentTime = datetime.now()
         difference = (currentTime - start_time).total_seconds()
-        latency = (difference/1000000)
+        latency = (difference)
         latency_data.append(latency)
         #Adding matches
         matches = len(re.findall(pattern, data))
@@ -82,7 +82,7 @@ def consumer_task(regex_pattern, window_duration, matches_data, throughput_data,
         data = ""
         time.sleep(window_duration)
         #Adding latency for the window 
-        latency_data.append(window_duration)
+        # latency_data.append(window_duration)
         #Fixing the file number and window_id
         window_id += 1
         count += window_duration

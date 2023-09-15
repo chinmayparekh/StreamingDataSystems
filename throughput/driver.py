@@ -1,13 +1,14 @@
 import time
 from datetime import datetime
 from threading import Thread, Event, Lock
-import producer_throughput as producer
+# import producer_throughput as producer
+import write as producer
 import matplotlib.pyplot as plt  # Import matplotlib for plotting
 import os
 def main():
     if not os.path.exists("throughput_150000_only_producer"):
         os.makedirs("throughput_150000_only_producer")
-    duration = 100
+    duration = 10
     throughput_per_second = 150000
 
     current_time = time.time()

@@ -33,24 +33,7 @@ def transform_time(timings):
     time_diffs_seconds = [(timing - first_timing).total_seconds() for timing in timings]
     return time_diffs_seconds
 
-# def compute_occurence(data,character,window_size):
-#     result = []
-#     for i in range(len(data) - window_size + 1):
-#         window_data = {k: v for k, v in data.items() if k in range(i, i + window_size)}
-#         print(window_data)
-#         window_result = 0  # Initialize the window result to zero
-#         start=window_data[i]
-#         # Calculate the result for the current window
-#         for k, v in window_data.items():
-#             if(k==i):
-#                 continue
-#             product = v *start
-#             window_result += product
-        
-#         result.append(window_result)
-#     return result
-#     print("Final Result:", result)
-def compute_occurence(data, character, window_size):
+def compute_occurence(data, window_size):
     result = []
     for i in range(len(data) - window_size + 1):
         window_data = {k: v for k, v in data.items() if k in range(i, i + window_size)}
@@ -78,7 +61,7 @@ def findPattern(data,pattern,timings):
     indices=list(range(len(data)))
     data=transform_data(data,time_diff,indices,character)
     print(data)
-    result=compute_occurence(data,character,int(interval))
+    result=compute_occurence(data,int(interval))
     return sum(result)
 
 def checkValid(input_string):
